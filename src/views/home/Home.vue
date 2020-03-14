@@ -8,7 +8,7 @@
 
     <Nav :nav_list="nav_list"></Nav>
     <FlashBuy :flash_sale_product_list="flash_sale_product_list" />
-    <TabbarShopsItem :shop_list="shop_list" />
+    <TabbarGoodsItem/>
 
     <li>
       <ul>1</ul>
@@ -72,7 +72,7 @@ import Sowing from "./components/sowing/Sowing";
 import Tip from "./components/tip/Tip";
 import Nav from "./components/nav/Nav";
 import FlashBuy from "./components/flash/FlashBuy";
-import TabbarShopsItem from "./components/tabbar/TabbarShopsItem";
+import TabbarGoodsItem from "./components/tabbar/TabbarGoodsItem";
 
 // 引入请求方法
 import { getswipedata } from "../../utils/home";
@@ -174,7 +174,7 @@ export default {
     Tip,
     Nav,
     FlashBuy,
-    TabbarShopsItem
+    TabbarGoodsItem
   }
 };
 </script>
