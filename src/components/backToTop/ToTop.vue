@@ -1,12 +1,3 @@
-<!--
- * @Author: 极客James
- * @Motto: 求知若渴,虚心若愚
- * @Github: https://github.com/Geek-James/ddBuy
- * @掘金: https://juejin.im/user/5c4ebc72e51d4511dc7306ce
- * @LastEditTime: 2019-12-06 17:07:57
- * @Description: 回到顶部组件
- * @FilePath: /ddBuy/src/components/backToTop/ToTop.vue
- -->
 <template>
   <div class="scrollTop"
        v-show="showTop"

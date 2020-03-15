@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router'
-import store from './store'
+import store from './store/store'
 import i18n from "./i18n/index";
 import VueI18n from "vue-i18n";
 import './icons'

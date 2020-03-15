@@ -15,13 +15,39 @@ const Shop = () => import('../views/shop/Shop.vue')
 //地图
 const Map = () => import('../views/home/components/map/Map.vue')
 
+// 加载订单相关的组件
+const Order = () => import('../views/order/Order.vue');
+const MyAddress = () => import('../views/order/children/MyAddress.vue');
+const AddAddress = () => import('../views/order/children/children/AddAddress.vue');
+const EditAddress = () => import('../views/order/children/children/EditAddress.vue');
+
+// 注册登录
+const Login = () => import('../views/login/Login.vue');
+
 // 解决多次点击重复路由报错
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
     return originalPush.call(this, location).catch(err => err)
 }
 
-
+// Mine的子组件 用户中心
+const UserCenter = () => import('../views/mine/Children/UserCenter.vue');
+// 修改用户昵称
+const ChangeNickName = () => import('../views/mine/Children/ChangeNickName.vue');
+// 优惠券
+const CouponList = () => import('../views/mine/Children/CouponList.vue')
+// 绿卡会员
+const MyVip = () => import('../views/mine/Children/MyVip.vue')
+// 会员支付
+const VipPay = () => import('../views/mine/Children/MyVipChildren/VipPay.vue')
+// 我的订单
+const MyOrder = () => import('../views/mine/Children/MyOrder');
+// 订单商品详情页
+const OrderGoodsList = () => import('../views/order/children/OrderGoodsList')
+// 商品详情页
+const GoodsDetail = () => import('../components/goodsDetail/GoodsDetail.vue');
+// 语言切换
+const SwitchLanguage = () => import('../views/mine/Children/SwitchLanguage.vue');
 
 Vue.use(Router)
 
@@ -86,6 +112,11 @@ const router = new Router({
                 name: 'mine',
                 component: Mine
             }, {
+                // 商品详情
+                path: '/goodsDetail',
+                name: 'goodsDetail',
+                component: GoodsDetail
+            },{
                 // 地图
                 path: 'map',
                 name: 'map',
@@ -96,6 +127,42 @@ const router = new Router({
                 name: 'shop',
                 component: Shop
             }]
+        },
+        {
+            // 订单
+            path: '/order',
+            name: 'order',
+            component: Order,
+            children: [{
+                // 我的地址
+                path: 'myAddress',
+                name: 'myAddress',
+                component: MyAddress,
+                meta: {
+                    requireAuth: true
+                },
+                children: [{
+                    // 添加地址
+                    path: 'addAddress',
+                    name: 'addAddress',
+                    component: AddAddress,
+                }, {
+                    // 编辑地址
+                    path: 'editAddress',
+                    name: 'editAddress',
+                    component: EditAddress
+                }]
+            }, {
+                path: 'orderGoodsList',
+                name: 'orderGoodsList',
+                component: OrderGoodsList
+            }]
+        },
+        {
+            // 登录
+            path: '/Login',
+            name: 'login',
+            component: Login
         }
     ],
     mode: 'history'

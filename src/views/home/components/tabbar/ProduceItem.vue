@@ -3,7 +3,7 @@
     <div class="item"
          v-for="(product,index) in product_list"
          :key="index"
-         @click.stop="goToGoodsDetail(product)">
+         @click.stop="goToGoodsDetail(product.id)">
       <img v-lazy="product.imageUrl"
            alt="">
       <p class="itemTitle">{{product.name}}</p>
@@ -47,20 +47,14 @@ export default {
       addCart: 'ADD_TO_CART'
     }),
     // 商品详情页面
-    goToGoodsDetail (goods) {
+    goToGoodsDetail (id) {
       // 跳转到商品详情页面并且传值
-      // this.$router.push({
-      //   name: "goodsDetail",
-      //   query: {
-      //     id: goods.id,
-      //     name: goods.name,
-      //     small_image: goods.small_image,
-      //     price: goods.price,
-      //     spec: goods.spec,
-      //     total_sales: goods.total_sales,
-      //     origin_price: goods.origin_price,
-      //   }
-      // });
+      this.$router.push({
+        name: "goodsDetail",
+        query: {
+          id: id,
+        }
+      });
     }
   }
 }

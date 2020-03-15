@@ -58,6 +58,7 @@ export default {
         myLocation: '我的收货地址',
         myCar: '我的绿卡',
         servier: '联系客服',
+        servierTime: '客服时间 07:00-22:00',
         feedback: '意见反馈',
         version: '当前版本',
         waitingPay: '待支付',
@@ -187,6 +188,11 @@ export default {
         comfirmAndUse: '保存并使用',
         order30: '编辑地址',
         order30: '我的地址',
+        settlement: '结算',
+        chooseGoods: '请选择需要结算的商品',
+        deliveryTime: '请选择送达时间',
+        today: '今天',
+        tomorrow: '明天'
 
 
     },

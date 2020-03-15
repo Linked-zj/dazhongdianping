@@ -1,14 +1,3 @@
-<!--
- * @Author: 极客James
- * @Motto: 求知若渴,虚心若愚
- * @Github: https://github.com/Geek-James/ddBuy
- * @掘金: https://juejin.im/user/5c4ebc72e51d4511dc7306ce
- * @LastEditTime: 2019-12-06 17:55:10
- * @Description: 商品详情页 由于是Mock数据->通过上级页面通过路由的query传值 
- * @supplement   企业开发,只需要拿到商品的id然后请求获取数据
- * @FilePath: /ddBuy-dev/src/components/goodsDetail/GoodsDetail.vue
- -->
-
 <template>
   <div id="goodsDetail">
     <van-nav-bar title="商品详情"
@@ -19,12 +8,12 @@
     <div class="goodsDetailWrapper">
       <!-- 商品图 -->
       <div class="goodsImage">
-        <img :src="goodsInfo.small_image"
+        <img :src="this.product.imageUrl"
              alt="">
       </div>
       <!-- 限时抢购  -->
       <div class="flash"
-           v-show="goodsInfo.isFlash">
+           v-show="product.isFlash == 1 ? true : false">
         <div class="flashLeft">
           <span>限时抢购</span>
           <i>抢购中</i>
@@ -47,11 +36,11 @@
       </div>
       <!-- 商品名称 -->
       <div class="productInfo">
-        <div class="title">{{goodsInfo.name}}</div>
-        <div class="subTitle">{{goodsInfo.spec}}</div>
-        <span class="originPrice">{{goodsInfo.origin_price | moneyFormat}}</span>
-        <span class="price">{{goodsInfo.price}}</span>
-        <span class="totalSales">已售:{{goodsInfo.total_sales}}</span>
+        <div class="title">{{product.name}}</div>
+        <div class="subTitle">{{product.spec}}</div>
+        <span class="originPrice">{{product.originPrice | moneyFormat}}</span>
+        <span class="price">{{product.price}}</span>
+        <span class="totalSales">已售:{{product.sales}}</span>
         <van-divider />
         <div class="shippingInfo">
           <van-icon name="cluster-o" />此商品按500g/份计价,如实收少于500g将退还差价</div>
@@ -75,7 +64,7 @@
         <van-divider dashed />
       </div>
       <div class="showGoods">
-        <img :src="goodsInfo.small_image"
+        <img :src="this.product.imageUrl"
              alt="">
         <img :src="goodsImage"
              alt="">
@@ -94,7 +83,7 @@
     </div>
 
     <!-- 回到顶部按钮 -->
-    <v-top />
+     <!-- <v-top /> -->
   </div>
 </template>
 
@@ -116,13 +105,14 @@ export default {
       time: 30 * 60 * 1000 * 100,
       // 是否是限时抢购
       isFlash: false,
-      goodsInfo: this.$route.query,
+      product: null,
+      id:null,
       goodsImage: 'https:\/\/img.ddimg.mobi\/3f280ff77ab3d1571213379189.jpg?width=750&height=1869'
     }
   },
   computed: {
     ...mapState(['shopCart']),
-    // 购物车商品数量
+   // 购物车商品数量
     goodsNum () {
       let num = 0;
       Object.values(this.shopCart).forEach((goods, index) => {
@@ -136,7 +126,20 @@ export default {
   components: {
 
   },
+  mounted(){
+    this.id = this.$route.query.id
+    this.getProductDetail()
+  },
   methods: {
+    //商品详情
+    getProductDetail(){
+        this.httpPost("/product/detail/" + this.id).then(result => {
+          if (result.code == 0) {
+          this.product = result.data;
+          this.product.imageUrl = this.baseUrl + this.product.imageUrl;
+        }
+      });
+    },
     ...mapMutations(['ADD_TO_CART']),
     // 返回
     onClickLeft () {
@@ -144,7 +147,7 @@ export default {
     },
     // 加入购物车
     onClickAddToCar () {
-      this.ADD_TO_CART(this.goodsInfo);
+      this.ADD_TO_CART(this.product);
     },
     // 点击了购物车
     onClickCar () {
