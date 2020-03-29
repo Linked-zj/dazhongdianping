@@ -1,6 +1,5 @@
 <template>
   <div id="dashboard">
-    
     <van-tabbar
       v-model="active"
       :safe-area-inset-bottom="true"
@@ -13,7 +12,7 @@
         :key="index"
         :id="index==3?'buycar':''"
         @click="tab(index,item.name)"
-         :info="item.name=='cart'? 1 :''" 
+        :info="item.name=='cart'? 1 :''"
       >
         <span :class="currIndex == index ? active:''">{{item.title}}</span>
         <template slot="icon" slot-scope="props">
@@ -53,6 +52,7 @@ export default {
     return {
       currIndex: 0,
       active: 0,
+      shop_list:[],
       tabbars: [
         {
           name: "home",
@@ -109,8 +109,28 @@ export default {
     ...mapMutations(["INIT_SHOP_CART", "INIT_USER_INFO"]),
     // 1.点击tabbar触发的方法
     tab(index, val) {
+      if(index !=1 ){
       this.currIndex = index;
       this.$router.push(val);
+      }else{
+      let param = { categoryId: null };
+      this.httpPost("/shop/list", param).then(result => {
+        if (result.code == 0) {
+          this.shop_list = result.data;
+          this.shop_list.forEach(item => {
+            item.shopImage1 = this.baseUrl + item.shopImage1;
+          });
+        }
+        this.$router.push({
+          name: "category",
+          params: {
+            currentIndex: index,
+            shop_list: this.shop_list,
+            //categoryId: categoryId
+          }
+        });
+      });
+      }
     },
     // 2.初始化购物车数据
     _initData() {

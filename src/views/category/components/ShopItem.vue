@@ -30,21 +30,24 @@ export default {
     DropMenu
   },
   computed: {},
+  props:{
+    shop_list:Array
+  },
   methods: {
   
-    getShopList() {
-      this.httpPost("shop/list", null).then(result => {
-        if (result.code == 0) {
-          this.shop_list = result.data;
-          this.shop_list.forEach(item => {
-            item.shopImage1 = this.baseUrl + item.shopImage1;
-          });
-        }
-      });
-    }
+    // getShopList() {
+    //   this.httpPost("shop/list", null).then(result => {
+    //     if (result.code == 0) {
+    //       this.shop_list = result.data;
+    //       this.shop_list.forEach(item => {
+    //         item.shopImage1 = this.baseUrl + item.shopImage1;
+    //       });
+    //     }
+    //   });
+    // }
   },
   created(){
-    this.getShopList();
+   // this.getShopList();
   }
 };
 </script>

@@ -93,10 +93,10 @@ import { mapState, mapMutations } from 'vuex'
 export default {
   created () {
   },
-  mounted () {
-    console.log();
+  // mounted () {
+  //   console.log();
 
-  },
+  // },
   computed: {
   },
   data () {

@@ -1,12 +1,3 @@
-<!--
- * @Author: 极客James
- * @Motto: 求知若渴,虚心若愚
- * @Github: https://github.com/Geek-James/ddBuy
- * @掘金: https://juejin.im/user/5c4ebc72e51d4511dc7306ce
- * @LastEditTime : 2020-01-06 17:54:46
- * @Description: 订单模块
- * @FilePath: /ddBuy/src/views/order/Order.vue
- -->
 <template>
   <div id="order">
     <van-nav-bar :title="$t('order.inputForm')"
@@ -372,7 +363,7 @@ export default {
       flex-direction: row;
       flex-wrap: nowrap;
       align-items: center;
-      justify-content: start;
+      justify-content: flex-start;
       height: 4rem;
       width: 80%;
       overflow: hidden;

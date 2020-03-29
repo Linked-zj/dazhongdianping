@@ -8,7 +8,7 @@
 
     <Nav :nav_list="nav_list"></Nav>
     <FlashBuy :flash_sale_product_list="flash_sale_product_list" />
-    <TabbarGoodsItem/>
+    <TabbarGoodsItem />
 
     <li>
       <ul>1</ul>
@@ -87,43 +87,53 @@ export default {
       nav_list: [
         {
           icon_url: require("@/images/nav/meishi.png"),
-          name: "美食"
+          name: "美食",
+          categoryId: 1
         },
         {
           icon_url: require("@/images/nav/meituan.png"),
-          name: "美团外卖"
+          name: "美团外卖",
+          categoryId: 2
         },
         {
           icon_url: require("@/images/nav/xiuxian.png"),
-          name: "休闲娱乐"
+          name: "休闲娱乐",
+          categoryId: 3
         },
         {
           icon_url: require("@/images/nav/jiudian.png"),
-          name: "酒店"
+          name: "酒店",
+          categoryId: 4
         },
         {
           icon_url: require("@/images/nav/dianying.png"),
-          name: "电影/演出"
+          name: "电影/演出",
+          categoryId: 5
         },
         {
           icon_url: require("@/images/nav/liren.png"),
-          name: "丽人"
+          name: "丽人",
+          categoryId: 6
         },
         {
-          icon_url: require("@/images/nav/zhoubian.png"),
-          name: "周边游"
+          icon_url: require("@/images/nav/jianshen.png"),
+          name: "运动健身",
+          categoryId: 7
         },
         {
           icon_url: require("@/images/nav/jingdian.png"),
-          name: "景点/门票"
+          name: "景点/门票",
+          categoryId: 8
         },
         {
           icon_url: require("@/images/nav/ktv.png"),
-          name: "KTV"
+          name: "KTV",
+          categoryId: 9
         },
         {
           icon_url: require("@/images/nav/peixun.png"),
-          name: "培训教育"
+          name: "培训教育",
+          categoryId: 10
         }
       ],
       flash_sale_product_list: [],
@@ -150,23 +160,23 @@ export default {
           this.flash_sale_product_list = result.data;
         }
       });
-    },
-    // 商店数据
-    getShopList() {
-      this.httpPost("/shop/list", null).then(result => {
-        if (result.code == 0) {
-          this.shop_list = result.data;
-          this.shop_list.forEach(item => {
-            item.shopImage1 = this.baseUrl + item.shopImage1;
-          });
-        }
-      });
     }
+    // 商店数据
+    // getShopList() {
+    //   this.httpPost("/shop/list", null).then(result => {
+    //     if (result.code == 0) {
+    //       this.shop_list = result.data;
+    //       this.shop_list.forEach(item => {
+    //         item.shopImage1 = this.baseUrl + item.shopImage1;
+    //       });
+    //     }
+    //   });
+    // }
   },
   created() {
     this.getswipedata();
     this.getflashdata();
-    this.getShopList();
+    // this.getShopList();
   },
   components: {
     Header,

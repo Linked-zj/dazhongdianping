@@ -289,7 +289,7 @@ export default {
     }
     .quanBox {
       display: flex;
-      justify-content: start;
+      justify-content: flex-start;
       flex-flow: wrap;
       min-height: 4rem;
       .quan {

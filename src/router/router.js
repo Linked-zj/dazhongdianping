@@ -87,9 +87,9 @@ const router = new Router({
                 path: 'category',
                 name: 'category',
                 component: Category,
-                meta: {
-                    keepAlive: true
-                }
+                // meta: {
+                //     keepAlive: true
+                // }
             }, {
                 // 吃什么
                 path: 'eat',

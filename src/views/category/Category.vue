@@ -1,7 +1,7 @@
 <template>
   <div class>
     <Head />
-    <ShopItemList/>
+    <ShopItemList :shop_list="shop_list" />
   </div>
 </template>
  
@@ -13,8 +13,8 @@ export default {
   name: "Category",
   data() {
     return {
-      msg: "Welcome to your vueName",
-    
+      categoryId: this.$route.params.categoryId,
+      shop_list: this.$route.params.shop_list
     };
   },
   components: {
