@@ -121,12 +121,13 @@ const router = new Router({
                 path: 'map',
                 name: 'map',
                 component: Map
-            }, {
-                // 商店
-                path: 'shop',
-                name: 'shop',
-                component: Shop
             }]
+        },
+        {
+            // 商店
+            path: 'shop',
+            name: 'shop',
+            component: Shop
         },
         {
             // 订单

@@ -1,17 +1,12 @@
 <template>
-   <swiper id="swiper"
-          :options="swiperOption"
-          ref="mySwiper">
+  <swiper id="swiper" :options="swiperOption" ref="mySwiper">
     <!-- slides -->
-    <swiper-slide v-for="(sowing) in sowing_list"
-                  :key="sowing.id">
-      <img :src="sowing.imgUrl"
-           :alt="sowing.name">
+    <swiper-slide v-for="(sowing) in shopImages" :key="sowing.index">
+      <img :src="sowing" />
     </swiper-slide>
 
     <!-- Optional controls -->
-    <div class="swiper-pagination"
-         slot="pagination"></div>
+    <div class="swiper-pagination" slot="pagination"></div>
   </swiper>
 </template>
 
@@ -29,16 +24,16 @@ export default {
       //   'https://img.yzcdn.cn/vant/apple-2.jpg'
       // ],
       sowing_list: [
-        {
-          id: 1,
-          name: "哈哈",
-          imgUrl:  require("@/images/shop/zhuque.png"),
-        },
-        {
-          id: 2,
-          name: "哈哈刚刚",
-          imgUrl: require("@/images/shop/gaolaojiu.png"),
-        }
+        // {
+        //   id: 1,
+        //   name: "哈哈",
+        //   imgUrl:  require("@/images/shop/zhuque.png"),
+        // },
+        // {
+        //   id: 2,
+        //   name: "哈哈刚刚",
+        //   imgUrl: require("@/images/shop/gaolaojiu.png"),
+        // }
       ],
       swiperOption: {
         // 进来就加载
@@ -76,6 +71,9 @@ export default {
     swiper() {
       return this.$refs.mySwiper.swiper;
     }
+  },
+  props: {
+    shopImages: Array
   }
 };
 </script>

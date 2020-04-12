@@ -1,11 +1,11 @@
 <template>
   <div id="Shop">
-    <shopSwipe />
+    <shopSwipe :shopImages="shopImages" />
     <div class="shopName">
-      <div class="shopTitle">商店标题</div>
+      <div class="shopTitle">{{this.shop.shopName}}</div>
       <div slot="tags" class="rate">
-        <van-rate color="#FF0000" allow-half v-model="value" size="15px" readonly />
-        <span class="score">2.36</span>
+        <van-rate color="#FF0000" allow-half v-model="this.shop.shopRate" size="15px" readonly />
+        <span class="score">{{this.shop.shopRate}}</span>
         <svg
           t="1578558444328"
           class="icon money"
@@ -37,11 +37,11 @@
             p-id="5199"
           />
         </svg>
-        <span>98/人</span>
+        <span>{{this.shop.shopAvgPrice}}/人</span>
       </div>
     </div>
     <van-divider>这是分割线</van-divider>
-    <van-cell title="上海市杨浦区国定路233号" icon="location-o" size="large" is-link />
+    <van-cell :title="this.shop.shopAddress" icon="location-o" size="large" is-link />
     <div class="product">特惠商品</div>
     <van-card
       tag="特惠"
@@ -62,7 +62,7 @@
     <van-cell title="查看更多优惠商品" size="large" is-link />
     <div class="product">网友评价</div>
 
-    <div class="commentDetail" v-for="(item) in data" :key="item.id">
+    <div class="commentDetail" v-for="(item) in comments" :key="item.id">
       <div class="userAvatar">
         <img class="avatar" v-lazy="item.userAvatarImg" alt />
       </div>
@@ -70,16 +70,16 @@
         <div class="userName">{{item.userName}}</div>
         <div class="userComment">{{item.commentInfo}}</div>
       </div>
-    </div>
-    <!-- <div id="flashFood">
-      <div class="flashItemwrapper">
-        <ul class="itemWrapper" ref="ulWrappers">
-          <li class="itemInCovers" v-for="(product) in data" :key="product.id" ref="productItem">
-            <img v-lazy="product.commentImg1" class="itemImage" />
-          </li>
-        </ul>
+      <div id="flashFood">
+        <div class="flashItemwrapper">
+          <ul class="itemWrapper" ref="ulWrappers">
+            <li class="itemInCovers" v-for="(image) in item.commentImages" :key="image.index">
+              <img v-lazy="image" class="itemImage" />
+            </li>
+          </ul>
+        </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
  
@@ -93,20 +93,30 @@ export default {
   name: "Shop",
   data() {
     return {
-      data: [],
-      value: 4.68
+      data: null,
+      shopId: this.$route.params.shopId,
+      shopImages: [],
+      comments: null,
+      commentImages: [],
+      shop: null
     };
   },
   methods: {
     // 精选评论数据
-    getCommentSelected() {
-      this.httpPost("/comment/select", null).then(result => {
+    getShopDetail() {
+      let param = {
+        shopId: this.shopId
+      };
+      this.httpPost("/shop/detail", param).then(result => {
         if (result.code == 0) {
-          this.data = result.data;
-          this.data.forEach(item => {
+          this.shop = result.data.shop;
+          this.comments = result.data.comments;
+          this.comments.forEach(item => {
             item.commentImg1 = this.baseUrl + item.commentImg1;
             item.userAvatarImg = this.baseUrl + item.userAvatarImg;
+            // this.commentImages.push(item.commentImg1);
           });
+          this.shopImages.push(this.baseUrl + result.data.shop.shopImage1);
         }
       });
       // console.log(this.data);
@@ -114,9 +124,9 @@ export default {
   },
   mounted() {
     // let that = this
-    console.log(this);
+    //console.log(this);
     this.$nextTick(() => {
-      console.log(this.$refs.ulWrappers);
+      // console.log(this.$refs.ulWrappers);
       let contentWrapperWidth = 630;
       // let el = this.$refs.productItem;
       // console.log(this.$refs.productItem);
@@ -143,7 +153,7 @@ export default {
     });
   },
   created() {
-    this.getCommentSelected();
+    this.getShopDetail();
   },
   components: {
     shopSwipe

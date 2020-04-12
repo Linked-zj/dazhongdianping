@@ -2,7 +2,12 @@
 <template>
   <div id="shopItemList">
     <DropMenu />
-    <div id="shopItem" v-for="(item,index) in shop_list" :key="index">
+    <div
+      id="shopItem"
+      v-for="(item,index) in shop_list"
+      :key="index"
+      @click="godetail(shop_list[index].id)"
+    >
       <van-card
         :desc="item.shopDesc"
         :title="item.shopName"
@@ -23,7 +28,7 @@ import DropMenu from "./DropMenu";
 export default {
   data() {
     return {
-      shop_list: []
+     // shop_list: []
     };
   },
   components: {
@@ -34,22 +39,19 @@ export default {
     shop_list:Array
   },
   methods: {
-  
-    // getShopList() {
-    //   this.httpPost("shop/list", null).then(result => {
-    //     if (result.code == 0) {
-    //       this.shop_list = result.data;
-    //       this.shop_list.forEach(item => {
-    //         item.shopImage1 = this.baseUrl + item.shopImage1;
-    //       });
-    //     }
-    //   });
-    // }
-  },
+    godetail(shopId){
+      this.$router.push({
+          name: "shop",
+          params: {
+            shopId: shopId,
+        }
+    })
+  }
+},
   created(){
    // this.getShopList();
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

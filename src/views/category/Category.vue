@@ -1,7 +1,7 @@
 <template>
   <div class>
     <Head />
-    <ShopItemList :shop_list="shop_list" />
+    <ShopItemList :shop_list="shop_list"/>
   </div>
 </template>
  
