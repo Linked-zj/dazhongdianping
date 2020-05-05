@@ -1,69 +1,76 @@
 <template>
   <div id="changeNickName">
-    <van-nav-bar :title="$t('mine.changeNickName')"
-                 :fixed=true
-                 :border=false
-                 @click-left="onClickLeft"
-                 left-arrow
-                 @click-right="onClickSave"
-                 :right-text="$t('mine.confirm')"
-                 style="height:2.5rem" />
+    <van-nav-bar
+      :title="$t('mine.changeNickName')"
+      :fixed="true"
+      :border="false"
+      @click-left="onClickLeft"
+      left-arrow
+      @click-right="onClickSave"
+      :right-text="$t('mine.confirm')"
+      style="height:2.5rem"
+    />
     <div style="margin-top:3rem">
       <van-cell-group :title="$t('mine.nickName')">
-        <van-field v-model="nickName"
-                   clearable
-                   ref="field"
-                   :placeholder="nickName" />
+        <van-field v-model="nickName" clearable ref="field" :placeholder="nickName" />
       </van-cell-group>
     </div>
-
   </div>
 </template>
 
 <script type="text/javascript">
-import { Toast } from 'vant'
+import { Toast } from "vant";
 // import { phoneCaptchaLogin } from './../../../serve/api/index.js'
-import { mapMutations } from 'vuex';
+import { mapMutations } from "vuex";
 
 export default {
-  data () {
+  data() {
     return {
       // 路由传递过来的参数 nickName
-      nickName: this.$route.params.nickName,
-    }
+      nickName: this.$route.params.nickName
+    };
   },
-  mounted () {
+  mounted() {
     this.$refs.field.focus();
   },
-  components: {
-
-  },
+  components: {},
   methods: {
-    ...mapMutations(['CHANGE_USER_NICK_NAME']),
+    ...mapMutations(["CHANGE_USER_NICK_NAME"]),
     // 返回按钮
-    onClickLeft () {
+    onClickLeft() {
       this.$router.back();
     },
     // 修改昵称
-    onClickSave () {
+    onClickSave() {
       //   console.log(this.nickName);
       if (this.nickName.length > 0) {
         let nickName = this.nickName;
         this.CHANGE_USER_NICK_NAME({ nickName });
+        let param = {
+          name : nickName
+        }
+        this.httpPost("user/edit", param).then(result => {
+          if (result.code == 0) {
+            Toast({
+              message: "修改成功",
+              duration: 800
+            });
+          }
+        });
         this.$router.back();
         Toast({
-          message: this.$t('mine.personal'),
+          message: this.$t("mine.personal"),
           duration: 800
-        })
+        });
       } else {
         Toast({
-          message: this.$t('mine.message'),
+          message: this.$t("mine.message"),
           duration: 800
-        })
+        });
       }
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

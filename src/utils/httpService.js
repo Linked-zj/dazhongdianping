@@ -88,6 +88,12 @@ const httpPost = function (url = '', data = {}) {
                     duration: 800
                 });
                 return res;
+            } else if (res.code === 10000) {
+                Toast({
+                    message: res.message,
+                    duration: 800
+                });
+                return res;
             }
             return Promise.resolve(res);
         }

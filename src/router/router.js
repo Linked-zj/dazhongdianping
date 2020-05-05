@@ -110,7 +110,27 @@ const router = new Router({
                 // 我的
                 path: 'mine',
                 name: 'mine',
-                component: Mine
+                component: Mine,
+                children: [{
+                    // 用户中心
+                    path: 'userCenter',
+                    name: 'userCenter',
+                    component: UserCenter,
+                    children: [{
+                        // 修改昵称
+                        path: 'changeNickName',
+                        name: 'ChangeNickName',
+                        component: ChangeNickName
+                    }]
+                },, {
+                    // 我的订单
+                    path: 'myOrder',
+                    name: 'myOrder',
+                    component: MyOrder,
+                    meta: {
+                        requireAuth: true
+                    }
+                }]
             }, {
                 // 商品详情
                 path: '/goodsDetail',
