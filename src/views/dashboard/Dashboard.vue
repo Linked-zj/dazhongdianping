@@ -12,7 +12,7 @@
         :key="index"
         :id="index==3?'buycar':''"
         @click="tab(index,item.name)"
-        :info="item.name=='cart'? 1 :''"
+        :info="item.name=='cart'? goodsNum :''"
       >
         <span :class="currIndex == index ? active:''">{{item.title}}</span>
         <template slot="icon" slot-scope="props">
@@ -93,16 +93,16 @@ export default {
     this._initData();
   },
   computed: {
-    ...mapState(["shopCart"], ["userInfo"])
-    // goodsNum () {
-    //   let num = 0;
-    //   Object.values(this.shopCart).forEach((goods, index) => {
-    //     num += goods.num;
-    //   });
-    //   if (num > 0) {
-    //     return num;
-    //   }
-    // }
+    ...mapState(["shopCart"], ["userInfo"]),
+    goodsNum () {
+      let num = 0;
+      Object.values(this.shopCart).forEach((goods, index) => {
+        num += goods.num;
+      });
+      if (num > 0) {
+        return num;
+      }
+    }
   },
   methods: {
     // 0. 延展mutations方法

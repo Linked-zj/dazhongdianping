@@ -227,3 +227,7 @@ Vue.use(Panel);
 // 38.骨架屏
 import { Skeleton } from 'vant';
 Vue.use(Skeleton);
+
+// 39.表单
+//import { Form } from 'vant';
+// Vue.use(Form);

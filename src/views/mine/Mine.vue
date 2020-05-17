@@ -55,7 +55,8 @@
                        :key="index"
                        :icon="order.icon"
                        :text="$t(order.title)"
-                       @click="goTomyOrder(index)" />
+                        :info="2"
+                       @click="goTomyOrder(index,order.orderStatus,order.confirmStatus)" />
       </van-grid>
     </van-cell-group>
     <van-cell-group style="margin-top:0.4rem">
@@ -126,10 +127,10 @@ export default {
       },
       // 订单状态
       orderData: [
-        { icon: 'cart-circle-o', title: 'mine.itemsTitle[1]' },
-        { icon: 'gift-o', title: 'mine.itemsTitle[2]' },
-        { icon: 'smile-comment-o', title: 'mine.itemsTitle[3]' },
-        { icon: 'cash-back-record', title: 'mine.waitingFeedback' }
+        { icon: 'cart-circle-o', title: 'mine.itemsTitle[1]',orderStatus: 0,confirmStatus: null},
+        { icon: 'gift-o', title: 'mine.itemsTitle[2]',orderStatus: 1,confirmStatus: null},
+        { icon: 'smile-comment-o', title: 'mine.itemsTitle[3]',orderStatus: null,confirmStatus: 1 },
+        { icon: 'cash-back-record', title: 'mine.waitingFeedback',orderStatus: null,confirmStatus: 1 }
       ],
       // 版本信息
       version: _VERSION_,
@@ -146,9 +147,10 @@ export default {
   },
   methods: {
     // 跳转到我的订单
-    goTomyOrder (index) {
+    goTomyOrder (index,orderStatus,confirmStatus) {
       if (index !== 3) {
-        return this.$router.push({ name: "myOrder", params: { active: index + 1 } });
+        console.log("orderStatus"+"----"+"confirmStatus")
+        return this.$router.push({ name: "myOrder", params: { active: index + 1,orderStatus:orderStatus,confirmStatus: confirmStatus} });
       }
       // 跳转到售后退款界面
       Toast({

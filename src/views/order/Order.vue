@@ -33,7 +33,7 @@
         <div class="productImageWrapper" ref="productImageWrapper">
           <ul class="imageWrapper" ref="imageWrapper">
             <li ref="subWrapper" style="display:inline" v-for="(item,index) in goods" :key="index">
-              <img :src="item.smallImage" alt />
+              <img :src="item.imageUrl" alt />
             </li>
           </ul>
         </div>
@@ -114,6 +114,7 @@
       <van-field
         :label="$t('order.mark')"
         type="textarea"
+        v-model="remark"
         :placeholder="$t('order.tip')"
         rows="1"
         autosize
@@ -167,6 +168,7 @@ export default {
       address_name: null, // 收货人
       address_phone: null, // 收货人电话
       address_id: null, // 收货人地址ID
+      remark: null,
 
       radio: "1", // 支付方式
       checked: false, // 积分兑换开关
@@ -264,7 +266,7 @@ export default {
   },
   methods: {
     // 初始化本地购物车数据
-    ...mapMutations(["INIT_SHOP_CART"]),
+    ...mapMutations(["INIT_SHOP_CART","DELETE_SELECT_GOODS"]),
     // 1.初始化滚动视图
     _initScroll() {
       if (!this.productImageScroll) {
@@ -297,7 +299,27 @@ export default {
           message: "确认支付" + this.selectedTotalPrice / 100 + "吗?"
         })
           .then(() => {
+            console.log("hh")
             // on confirm
+            let param = {
+              totalAmount: this.selectedTotalPrice/100,
+              receiveName: this.address_name,
+              receivePhone: this.address_phone,
+              receiveAddress: this.address_id,
+              receiveTime: this.deliveryTime,
+              remark: this.remark,
+              orderProductList: this.goods
+            };
+            this.httpPost("order/create", param).then(result => {
+              if (result.code == 0) {
+                Toast({
+                  message: "下单成功",
+                  duration: 800
+                });
+                this.DELETE_SELECT_GOODS();
+                this.$router.push({ name: 'mine' });
+              }
+            });
           })
           .catch(() => {
             // on cancel

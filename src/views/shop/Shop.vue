@@ -40,7 +40,7 @@
         <span>{{this.shop.shopAvgPrice}}/人</span>
       </div>
     </div>
-    <van-divider>这是分割线</van-divider>
+    <van-divider />
     <van-cell :title="this.shop.shopAddress" icon="location-o" size="large" is-link />
     <div class="product">特惠商品</div>
     <van-card
@@ -80,6 +80,9 @@
         </div>
       </div>
     </div>
+    <van-tabbar :safe-area-inset-bottom="true" active-color="#07c160" inactive-color="#000">
+      <van-tabbar-item icon="home-o">评论</van-tabbar-item>
+    </van-tabbar>
   </div>
 </template>
  
@@ -98,7 +101,7 @@ export default {
       shopImages: [],
       comments: null,
       commentImages: [],
-      shop: null
+      shop: Object
     };
   },
   methods: {
@@ -137,19 +140,19 @@ export default {
 
       // this.$refs.ulWrappers.style.width = contentWrapperWidth + "px";
       // console.log(this.$refs.ulWrappers)
-      if (!this.scroll) {
-        // 名字一定要唯一 和父组件独立
-        this.scroll = new BScroll(".flashItemwrapper", {
-          probeType: 2,
-          startX: 0,
-          click: true,
-          scrollX: true,
-          scrollY: false,
-          eventPassthrough: "vertical"
-        });
-      } else {
-        this.scroll.refresh();
-      }
+      // if (!this.scroll) {
+      //   // 名字一定要唯一 和父组件独立
+      //   this.scroll = new BScroll(".flashItemwrapper", {
+      //     probeType: 2,
+      //     startX: 0,
+      //     click: true,
+      //     scrollX: true,
+      //     scrollY: false,
+      //     eventPassthrough: "vertical"
+      //   });
+      // } else {
+      //   this.scroll.refresh();
+      // }
     });
   },
   created() {

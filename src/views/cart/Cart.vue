@@ -92,7 +92,7 @@ import { Dialog, Toast } from 'vant';
 export default {
   mounted () {
     // 初始化数据
-    // this._initData();
+     this._initData();
   },
   data () {
     return {
@@ -179,13 +179,13 @@ export default {
       }
     },
     // 2.数据加载
-    // async _initData () {
-    //   let ref = await getGuessYouLike();
-    //   if (ref.success) {
-    //     this.youLike_product_lists = ref.data.product_list;
-    //     this.isShowLoading = false;
-    //   }
-    // },
+    async _initData () {
+      // let ref = await getGuessYouLike();
+      // if (ref.success) {
+      //   this.youLike_product_lists = ref.data.product_list;
+      //   this.isShowLoading = false;
+      // }
+    },
     // 3.减少商品数量
     reduceGoods (goodsID, goodsNum) {
       if (goodsNum > 1) {

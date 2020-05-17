@@ -43,7 +43,6 @@ export default {
           });
         }
       });
-      console.log(this.data);
     }
 
     // // 1.数据请求
