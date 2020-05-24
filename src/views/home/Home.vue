@@ -3,24 +3,12 @@
     <div class="head">
       <Header></Header>
       <Sowing :sowing_list="sowing_list" />
-      <Tip :home_ad="home_ad" />
+      <!-- <Tip :home_ad="home_ad" /> -->
     </div>
 
     <Nav :nav_list="nav_list"></Nav>
     <FlashBuy :flash_sale_product_list="flash_sale_product_list" />
     <TabbarGoodsItem />
-
-    <li>
-      <ul>1</ul>
-      <ul>2</ul>
-      <ul>3</ul>
-      <ul>4</ul>
-      <ul>5</ul>
-      <ul>6</ul>
-      <ul>7</ul>
-      <ul>8</ul>
-      <ul>9</ul>
-    </li>
   </div>
 </template>
  

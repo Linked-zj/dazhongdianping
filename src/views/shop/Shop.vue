@@ -43,21 +43,13 @@
     <van-divider />
     <van-cell :title="this.shop.shopAddress" icon="location-o" size="large" is-link />
     <div class="product">特惠商品</div>
-    <van-card
+    <van-card  v-for="(item) in shopProductsList" :key="item.id"
       tag="特惠"
-      price="2.00"
-      desc="描述信息"
-      title="商品标题"
-      thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
-      origin-price="10.00"
-    />
-    <van-card
-      tag="特惠"
-      price="2.00"
-      desc="描述信息"
-      title="商品标题"
-      thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
-      origin-price="10.00"
+      :price="item.price"
+      :desc="item.produceDesc"
+      :title="item.productName"
+      :thumb="item.imgUrl"
+      :origin-price="item.originPrice"
     />
     <van-cell title="查看更多优惠商品" size="large" is-link />
     <div class="product">网友评价</div>
@@ -70,7 +62,7 @@
         <div class="userName">{{item.userName}}</div>
         <div class="userComment">{{item.commentInfo}}</div>
       </div>
-      <div id="flashFood">
+      <!-- <div id="flashFood">
         <div class="flashItemwrapper">
           <ul class="itemWrapper" ref="ulWrappers">
             <li class="itemInCovers" v-for="(image) in item.commentImages" :key="image.index">
@@ -78,10 +70,10 @@
             </li>
           </ul>
         </div>
-      </div>
+      </div> -->
     </div>
     <van-tabbar :safe-area-inset-bottom="true" active-color="#07c160" inactive-color="#000">
-      <van-tabbar-item icon="home-o">评论</van-tabbar-item>
+      <van-tabbar-item icon="home-o" @click="goComment()">评论</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -101,6 +93,7 @@ export default {
       shopImages: [],
       comments: null,
       commentImages: [],
+      shopProductsList: [],
       shop: Object
     };
   },
@@ -114,15 +107,23 @@ export default {
         if (result.code == 0) {
           this.shop = result.data.shop;
           this.comments = result.data.comments;
+          this.shopProductsList = result.data.shopProductsList;
           this.comments.forEach(item => {
             item.commentImg1 = this.baseUrl + item.commentImg1;
             item.userAvatarImg = this.baseUrl + item.userAvatarImg;
+            // this.commentImages.push(item.commentImg1);
+          });
+          this.shopProductsList.forEach(item => {
+            item.imgUrl = this.baseUrl + item.imgUrl;
             // this.commentImages.push(item.commentImg1);
           });
           this.shopImages.push(this.baseUrl + result.data.shop.shopImage1);
         }
       });
       // console.log(this.data);
+    },
+    goComment(){
+      this.$router.push({name:'ShopComment'})
     }
   },
   mounted() {
@@ -201,7 +202,7 @@ export default {
 }
 
 .commentDetail {
-  height: 12rem;
+  height: 8rem;
   display: flex;
 }
 .userName {

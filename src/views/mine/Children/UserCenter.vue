@@ -8,7 +8,7 @@
                  style="height:2.5rem" />
     <div class="icon">
       <span class="title">{{$t('mine.head')}}</span>
-      <img src="./../../../images/mine/defaultImg.jpeg"
+      <img src="./../../../images/mine/sit.jpg"
            alt="">
     </div>
     <van-cell-group>
@@ -176,6 +176,15 @@ export default {
         message: this.$t('mine.loginInfo')
       }).then(() => {
         // on confirm
+        this.httpPost("user/signOut", null).then(result => {
+          if (result.code == 0) {
+            this.$router.back();
+            Toast({
+              message: "登录成功",
+              duration: 800
+            });
+          }
+        });
         this.LOGIN_OUT();
         Toast({
           message: this.$t('mine.infoSuccess'),

@@ -1,5 +1,9 @@
 import axios from 'axios';
 import { Toast } from 'vant'
+import {
+    getLocalStore,
+    setLocalStore
+} from './../config/global'
 let qs = require('qs');
 
 axios.defaults.withCredentials = true;
@@ -69,12 +73,17 @@ const httpGet = function (url = '', data = {}) {
  * post 请求
  */
 const httpPost = function (url = '', data = {}) {
+    let auth =""
+    if(getLocalStore('userInfo')!=null){
+        auth = (JSON.parse(getLocalStore('userInfo'))).token
+    }
     const instance = axios.create({
         baseURL: baseUrl,
         withCredentials: false,
         headers: {
             'Accept': 'application/json;charset=UTF-8',
-            'content-type': 'application/json'
+            'content-type': 'application/json',
+            'Authorization': auth
         }
     });
     return instance.post(url, JSON.stringify(data)).then((result) => {
@@ -113,7 +122,13 @@ const httpPost = function (url = '', data = {}) {
             }
             //this.$router.push('/login');
             return res;
-        }
+        } else if (res.code === 10001 || res.code === 10002 || res.code === 10003) {
+            Message({
+              type: 'error',
+              message: res.message
+            })
+            router.push('/login')
+          }
         res = {
             code: -1,
             message: '网络请求异常，请稍后再试或联系客服！'

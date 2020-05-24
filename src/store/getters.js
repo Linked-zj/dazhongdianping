@@ -54,9 +54,9 @@ export default {
     // 性别
     [USER_SEX](state) {
         if (state.userInfo.sex == '1') {
-            return '美女'
+            return '女'
         } else if (state.userInfo.sex == '2') {
-            return '帅哥';
+            return '男';
         } else {
             return '未填写'
         }

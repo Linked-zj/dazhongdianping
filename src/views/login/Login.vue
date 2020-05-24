@@ -95,7 +95,7 @@
             <div
               class="switchLogin"
               @click="switchLogin"
-            >{{this.isShowSMSLogin?$t('login.phoneVerify'):$t('login.smsMessage')}}</div>
+            >{{this.isShowSMSLogin?$t('login.phoneVerify'):"短信登录"}}</div>
           </van-tab>
           <!-- 注册 -->
           <van-tab :title="$t('login.resgin')">
@@ -279,13 +279,10 @@ export default {
           return;
         }
         // 5.1.3 请求后台登录接口
-        // let ref = await phoneCaptchaLogin(this.login_phone, this.smsCaptcha);
         // 设置userInfo 保存到vuex和本地
         this.syncuserInfo(ref.data);
         this.$router.back();
       } else {
-        // 5.2 账号密码登录
-        // 5.2.1 验证输入框
         if (this.login_userName.length < 1) {
           Toast({
             message: this.$t("login.phoneNumber"),
@@ -312,9 +309,6 @@ export default {
           return;
         }
         // 5.2.2 请求后台
-        // let ref = await phoneCaptchaLogin(this.login_userName, this.login_password);
-        // this.syncuserInfo(ref.data);
-        // this.$router.back();
         const md5 = crypto.createHash("md5");
         md5.update(this.login_password);
         this.password = md5.digest("hex");
@@ -325,6 +319,7 @@ export default {
         this.httpPost("user/login", param).then(result => {
           if (result.code == 0) {
             let userInfo = {
+              user_name:'',
               phone: this.login_userName,
               token: result.data
             };
@@ -374,6 +369,7 @@ export default {
         this.httpPost("user/register", param).then(result => {
           if (result.code == 0) {
             let userInfo = {
+              user_name:'',
               phone: this.telephone,
               token: result.data
             };
@@ -385,9 +381,6 @@ export default {
             });
           }
         });
-        // // 设置userInfo 保存到vuex和本地
-        // this.syncuserInfo(ref.data);
-        // this.$router.back();
       }
     },
     // 7.用户协议

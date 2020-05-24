@@ -55,23 +55,23 @@
                        :key="index"
                        :icon="order.icon"
                        :text="$t(order.title)"
-                        :info="2"
+                        
                        @click="goTomyOrder(index,order.orderStatus,order.confirmStatus)" />
       </van-grid>
     </van-cell-group>
     <van-cell-group style="margin-top:0.4rem">
-      <van-cell :title="$t('mine.myBill')"
+      <!-- <van-cell :title="$t('mine.myBill')"
                 icon="gold-coin"
                 :value="userInfo.token?'2':''"
                 @click="goToPage('couponList')"
-                is-link />
+                is-link /> -->
       <van-cell :title="$t('mine.myLocation')"
                 icon="todo-list"
                 is-link
                 @click="goToPage('myAddress')" />
     </van-cell-group>
 
-    <van-cell-group style="margin-top:0.4rem">
+    <!-- <van-cell-group style="margin-top:0.4rem">
       <van-cell is-link
                 icon="vip-card"
                 @click="goToPage('myVip')">
@@ -81,7 +81,7 @@
                    :round=true>NEW</van-tag>
         </template>
       </van-cell>
-    </van-cell-group>
+    </van-cell-group> -->
     <van-cell-group style="margin-top:0.4rem">
       <!-- 联系客服 -->
       <van-cell :title="$t('mine.servier')"
@@ -120,7 +120,7 @@ export default {
     return {
       // 头像
       user_image: {
-        login_icon: require('./../../images/mine/defaultImg.jpeg'),
+        login_icon: require('./../../images/mine/sit.jpg'),
         noLogin_icon: require('./../../images/login/grey.jpg'),
         female: require('./../../images/mine/female.png'),
         male: require('./../../images/mine/male.png')
