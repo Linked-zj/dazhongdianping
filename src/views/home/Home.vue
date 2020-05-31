@@ -102,9 +102,12 @@ export default {
 
     // 限时抢购数据
     getflashdata() {
-      this.httpPost("/flash/data", null).then(result => {
+      this.httpPost("/product/flash", null).then(result => {
         if (result.code == 0) {
           this.flash_sale_product_list = result.data;
+          this.flash_sale_product_list.forEach(item => {
+            item.imageUrl = this.baseUrl + item.imageUrl;
+          });
         }
       });
     }

@@ -319,9 +319,10 @@ export default {
         this.httpPost("user/login", param).then(result => {
           if (result.code == 0) {
             let userInfo = {
-              user_name:'',
+              user_name: "",
               phone: this.login_userName,
-              token: result.data
+              token: result.data.token,
+              userId: result.data.userId
             };
             this.syncuserInfo(userInfo);
             this.$router.back();
@@ -369,7 +370,7 @@ export default {
         this.httpPost("user/register", param).then(result => {
           if (result.code == 0) {
             let userInfo = {
-              user_name:'',
+              user_name: "",
               phone: this.telephone,
               token: result.data
             };

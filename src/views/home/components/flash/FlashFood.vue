@@ -9,7 +9,7 @@
           ref="productItem"
           @click="goToGoodsDetail(product)"
         >
-          <img v-lazy="product.imgUrl" class="itemImage" />
+          <img v-lazy="product.imageUrl" class="itemImage" />
           <span class="title">{{product.name}}</span>
           <div class="price">
             <p class="nowPrice">{{product.price | moneyFormat}}</p>
@@ -101,11 +101,9 @@ export default {
     this.dropBalls = [];
   },
   mounted() {
-    console.log(this)
     this.$nextTick(() => {
-      let contentWrapperWidth = 630;
+      let contentWrapperWidth = 200;
       // let el = this.$refs.productItem;
-      // console.log(this.$refs.productItem);
       // for (let i = 0; i < el.length; i++) {
       //   contentWrapperWidth += el[i].clientWidth;
       // }
@@ -130,17 +128,17 @@ export default {
   methods: {
     // 添加到购物车
     ...mapMutations(["ADD_TO_CART"]),
-    // addToCart (product, num) {
-    //   this.ADD_TO_CART(product);
-    //   if (this.userInfo.token) {
-    //     // 取出商品的图片
-    //     this.dropImage = product.small_image;
-    //     // 增加到购物车
-    //     this.elLeft = event.target.getBoundingClientRect().left;
-    //     this.elTop = event.target.getBoundingClientRect().top;
-    //     this.showMoveDot = [...this.showMoveDot, true];
-    //   }
-    // },
+    addToCart (product, num) {
+      this.ADD_TO_CART(product);
+      if (this.userInfo.token) {
+        // 取出商品的图片
+        this.dropImage = product.imageUrl;
+        // 增加到购物车
+        this.elLeft = event.target.getBoundingClientRect().left;
+        this.elTop = event.target.getBoundingClientRect().top;
+        this.showMoveDot = [...this.showMoveDot, true];
+      }
+    },
     beforeEnter(el) {
       // 设置transform值
       el.style.transform = `translate3d(${this.elLeft - 30}px,${this.elTop -
@@ -183,23 +181,19 @@ export default {
     },
     // 商品详情页面
     goToGoodsDetail(goods) {
-      // 跳转到商品详情页面并且传值
-      // this.$router.push({
-      //   name: "goodsDetail",
-      //   query: {
-      //     id: goods.id,
-      //     name: goods.name,
-      //     small_image: goods.small_image,
-      //     price: goods.price,
-      //     spec: goods.spec,
-      //     total_sales: goods.total_sales,
-      //     origin_price: goods.origin_price,
-      //     isFlash: true
-      //   }
-      // });
-      Toast({
-        message: "工程师爸爸正在开发",
-        duration: 800
+      //跳转到商品详情页面并且传值
+      this.$router.push({
+        name: "goodsDetail",
+        query: {
+          id: goods.id,
+          name: goods.name,
+          small_image: goods.imgUrl,
+          price: goods.price,
+          spec: goods.spec,
+          total_sales: goods.total_sales,
+          origin_price: goods.origin_price,
+          isFlash: true
+        }
       });
     }
   }

@@ -62,7 +62,7 @@ export default {
       }
         this.httpPost("/product/list", param).then(result => {
           if (result.code == 0) {
-          this.product_list = result.data.data;
+          this.product_list = result.data;
           this.product_list.forEach(item => {
             item.imageUrl = this.baseUrl + item.imageUrl;
           });

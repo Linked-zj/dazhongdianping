@@ -266,7 +266,11 @@ export default {
   },
   methods: {
     // 初始化本地购物车数据
-    ...mapMutations(["INIT_SHOP_CART","DELETE_SELECT_GOODS"]),
+    ...mapMutations([
+      "INIT_SHOP_CART",
+      "DELETE_SELECT_GOODS",
+      "INIT_USER_INFO"
+    ]),
     // 1.初始化滚动视图
     _initScroll() {
       if (!this.productImageScroll) {
@@ -299,25 +303,33 @@ export default {
           message: "确认支付" + this.selectedTotalPrice / 100 + "吗?"
         })
           .then(() => {
-            console.log("hh")
             // on confirm
-            let param = {
-              totalAmount: this.selectedTotalPrice/100,
-              receiveName: this.address_name,
-              receivePhone: this.address_phone,
-              receiveAddress: this.address_id,
-              receiveTime: this.deliveryTime,
-              remark: this.remark,
-              orderProductList: this.goods
+            let hash = {
+              productId: this.goods[0].id,
+              userId: (JSON.parse(getLocalStore("userInfo"))).userId
             };
-            this.httpPost("order/create", param).then(result => {
+            this.httpPost("order/get/hash", hash).then(result => {
               if (result.code == 0) {
-                Toast({
-                  message: "下单成功",
-                  duration: 800
+                let param = {
+                  totalAmount: this.selectedTotalPrice / 100,
+                  receiveName: this.address_name,
+                  receivePhone: this.address_phone,
+                  receiveAddress: this.address_id,
+                  receiveTime: this.deliveryTime,
+                  remark: this.remark,
+                  orderProductList: this.goods,
+                  hashCode: result.data
+                };
+                this.httpPost("order/create", param).then(result => {
+                  if (result.code == 0) {
+                    Toast({
+                      message: "下单成功",
+                      duration: 800
+                    });
+                    this.DELETE_SELECT_GOODS();
+                    this.$router.push({ name: "mine" });
+                  }
                 });
-                this.DELETE_SELECT_GOODS();
-                this.$router.push({ name: 'mine' });
               }
             });
           })

@@ -40,7 +40,7 @@
         <div class="subTitle">{{product.spec}}</div>
         <span class="originPrice">{{product.originPrice | moneyFormat}}</span>
         <span class="price">{{product.price}}</span>
-        <span class="totalSales">已售:{{product.sales}}</span>
+        <span class="totalSales">库存:{{product.count-product.sales}}</span>
         <van-divider />
         <div class="shippingInfo">
           <van-icon name="cluster-o" />此商品按500g/份计价,如实收少于500g将退还差价</div>
@@ -66,8 +66,8 @@
       <div class="showGoods">
         <img :src="this.product.imageUrl"
              alt="">
-        <img :src="goodsImage"
-             alt="">
+        <!-- <img :src="goodsImage"
+             alt=""> -->
       </div>
 
       <!-- 底部商品导航    -->
@@ -105,7 +105,7 @@ export default {
       time: 30 * 60 * 1000 * 100,
       // 是否是限时抢购
       isFlash: false,
-      product: null,
+      product: Object,
       id:null,
       goodsImage: 'https:\/\/img.ddimg.mobi\/3f280ff77ab3d1571213379189.jpg?width=750&height=1869'
     }
