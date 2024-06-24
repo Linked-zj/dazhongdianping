@@ -18,7 +18,7 @@
 
 
 ## 组织架构
-<img width="281" alt="image" src="https://github.com/Linked-zj/dazhongdinapingApi/assets/49391687/ab68995b-df86-42ec-8892-9bbdc7d8e8ea">
+![image](https://github.com/Linked-zj/dazhongdianping/assets/49391687/546844d5-dd1b-47a1-8ea8-571568257c64)
 
 
 ### 后端技术
@@ -52,12 +52,6 @@
 | Vant        | 有赞UI框架                | [vant](http://mui.ucmed.cn/#/zh-CN/intro)             |
 | Axios       | 前端HTTP框架              | [axios](https://github.com/axios/axios)         |
 | Js-cookie   | cookie管理工具            | [js-cookie](https://github.com/js-cookie/js-cookie) |
-
-
-
-
-
-
 
 
 ## Project setup
